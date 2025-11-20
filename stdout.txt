@@ -1,0 +1,48 @@
+2025-11-17 12:51:03,115 INFO Spark version: 3.5.6-amzn-1
+2025-11-17 12:51:03,116 INFO sc.defaultParallelism: 2
+2025-11-17 12:51:03,116 INFO Partitions: 4
+2025-11-17 12:51:03,116 INFO Input path:    s3://[MY_BUCKET]/Test
+2025-11-17 12:51:03,116 INFO Optimized path: s3://[MY_BUCKET]/Test_Compacted.parquet
+2025-11-17 12:51:03,116 INFO Output path:   s3://[MY_BUCKET]/fruit_categories_pca
+2025-11-17 12:51:03,116 INFO Arrow batch:   128
+2025-11-17 12:51:03,116 INFO S3 Region (from endpoint): eu-west-3
+2025-11-17 12:51:03,116 INFO EMR Cluster Region (detected): eu-west-3
+2025-11-17 12:51:03,230 WARNING Optimized path not found. Performing first-time load from: s3://[MY_BUCKET]/Test
+2025-11-17 12:51:12,152 INFO Writing data to optimized Parquet format: s3://[MY_BUCKET]/Test_Compacted.parquet
+2025-11-17 12:55:35,190 INFO Successfully wrote compacted Parquet for future runs.
+2025-11-17 12:55:39,441 INFO Category with fewest files: 'Cabbage white 1' (47 files)
+2025-11-17 12:55:51,433 INFO Loaded 9450 images from 210 categories (45 per category).
+2025-11-17 12:55:55,878 INFO --- GPU probe (executors) ---
+2025-11-17 12:55:55,878 INFO host=ip-xxx-xx-xx-xx.eu-west-3.compute.internal | GPU=T4 | cuda=True (cu=11.8)
+2025-11-17 12:55:55,878 INFO host=ip-xxx-xx-xx-xx.eu-west-3.compute.internal | GPU=T4 | cuda=True (cu=11.8)
+2025-11-17 12:55:56,048 INFO --- Apply featurization ---
+2025-11-17 12:55:56,049 INFO Pandas UDF: MobileNetV2 - array<float>[1280] | partitions=4
+2025-11-17 12:56:10,324 INFO Invalid images (global): 0 / 9450 (0.00%)
+2025-11-17 12:56:11,320 INFO Applying StandardScaler (withStd=True, withMean=False)...
+2025-11-17 12:57:06,109 INFO StandardScaler applied.
+2025-11-17 12:57:06,109 INFO Running PCA with requested k=128...
+2025-11-17 12:57:24,398 INFO PCA with K=128 completed. Exported to: s3://[MY_BUCKET]/fruit_categories_pca (coalesce=off)
+2025-11-17 12:57:24,398 INFO --- Quality Checks ---
+2025-11-17 12:57:25,203 INFO Data integrity: 9450 rows successfully written to disk.
+2025-11-17 12:57:28,482 INFO NaN Values: Found 0 NaN values across all PCA columns.
+2025-11-17 12:57:28,482 INFO Zero Vectors: Found 0 rows where all PCA components are zero.
+2025-11-17 12:57:28,491 INFO --- Explained variance ---
+2025-11-17 12:57:28,492 INFO Total variance explained by 128 components: 0.8782
+2025-11-17 12:57:28,492 INFO Component 0: 0.0979
+2025-11-17 12:57:28,492 INFO Component 1: 0.0540
+2025-11-17 12:57:28,492 INFO Component 2: 0.0486
+2025-11-17 12:57:28,492 INFO Component 3: 0.0457
+2025-11-17 12:57:28,492 INFO Component 4: 0.0367
+2025-11-17 12:57:28,557 INFO --- Parquet Output report ---
+2025-11-17 12:57:28,557 INFO Files: 4 | Total: 9.44 MiB | Avg: 2.36 MiB | Min/Max: 2.35/2.37 MiB
+2025-11-17 12:57:28,557 INFO --- PCA output (3 random samples) ---
++----------------------------------------------------+-------------------+----------+----------+----------+----------+----------+
+|path                                                |label              |pca_0     |pca_1     |pca_2     |pca_3     |pca_4     |
++----------------------------------------------------+-------------------+----------+----------+----------+----------+----------+
+|s3://[MY_BUCKET]/Test/Apple Braeburn 1/36_100.jpg       |Apple Braeburn 1   |11.3580   |-6.9828   |-6.0596   |-2.9699   |8.2406    |
+|s3://[MY_BUCKET]/Test/Avocado ripe 1/116_100.jpg        |Avocado ripe 1     |-14.9241  |-3.1808   |-2.7232   |-2.7279   |-8.0051   |
+|s3://[MY_BUCKET]/Test/Tomato Cherry Red 2/r0_143_100.jpg|Tomato Cherry Red 2|15.3039   |-8.9675   |-1.1329   |-16.2599  |7.4732    |
++----------------------------------------------------+-------------------+----------+----------+----------+----------+----------+
+
+2025-11-17 12:57:29,045 INFO --- Spark Job completed successfully ---
+2025-11-17 12:57:30,331 INFO --- Spark Session stopped ---
